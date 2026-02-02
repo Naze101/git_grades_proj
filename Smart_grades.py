@@ -13,11 +13,15 @@ def grade_analysis():
 
     grades = [] # variable that will contain all grades
     # declare input
-    user_grades = input("Please input the grades you recieved")
+    user_grades = input("Please input the grades you recieved: ")
     # use regex to clean input to get respect grades
-    db_grades = re.findall("[0-9][0-9]", grades)
-    s_grades = re.findall("(?<!\d)\d(?=%)", grades) # "[0-9]"= X, ?![a-zA-Z0-9])[0-9]% = X. 
-    hundred_grades = re.findall("100", grades)
+    grades.extend(re.findall("(?<!\d)[0-9][0-9](?=%)", user_grades))
+    grades.extend(re.findall("(?<!\d)\d(?=%)", user_grades)) # "[0-9]"= X, ?![a-zA-Z0-9])[0-9]% = X. 
+    grades.extend(re.findall("100", user_grades))
+   
+    # need to turn strings in list to numbers for calculation
+    grades = [int(i) for i in grades]
+
     # use numbers in list, add them up, and calculate the average "for num in list, total_num + num" and then calculate by dividing by amount of numbers
     #Also find highest and lowest using min() and max() function
     #variable that numbers are collected into
@@ -26,18 +30,17 @@ def grade_analysis():
     
     for num in grades:
         total_num += int(num)
+    
     average = total_num/subj_num
 
     # highest numbers 
     highest_grade = max(grades)
     lowest_grades = min(grades)
 
+    print(f"Your total: {total_num}, Average: {average}%, Highest grade: {highest_grade}%, Lowest grade: {lowest_grades}%")
     #Associate calculated average with letter grades
 
     #output grades with letter
-    print(hundred_grades)
-    print(db_grades)
-    print(s_grades)
 grade_analysis()
 
 
