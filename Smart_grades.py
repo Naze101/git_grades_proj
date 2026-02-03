@@ -18,7 +18,6 @@ def grade_analysis():
     grades.extend(re.findall("(?<!\d)[0-9][0-9](?=%)", user_grades))
     grades.extend(re.findall("(?<!\d)\d(?=%)", user_grades)) # "[0-9]"= X, ?![a-zA-Z0-9])[0-9]% = X. 
     grades.extend(re.findall("100", user_grades))
-   
     # need to turn strings in list to numbers for calculation
     grades = [int(i) for i in grades]
 
@@ -37,10 +36,23 @@ def grade_analysis():
     highest_grade = max(grades)
     lowest_grades = min(grades)
 
-    print(f"Your total: {total_num}, Average: {average}%, Highest grade: {highest_grade}%, Lowest grade: {lowest_grades}%")
+    
     #Associate calculated average with letter grades
+    if average >=86:
+        lettergrade = "A"
+    elif average >=73:
+        lettergrade = "B"
+    elif average >=67:
+        lettergrade = "C+"
+    elif average >=60:
+        lettergrade = "C"
+    elif average >=50:
+        lettergrade = "C-"
+    elif average >=0:
+        lettergrade = "F"
 
     #output grades with letter
+    print(f"Average: {average}%, Highest Grade: {highest_grade}%, Lowest Grade: {lowest_grades}%, Letter Grade: {lettergrade}")
 grade_analysis()
 
 
