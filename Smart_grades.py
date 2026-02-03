@@ -8,9 +8,12 @@
 
 #Declare any libraries needed (regex)
 import re
+
+#declaring boolean for error handling
+func_on = False
 # create function that does the following:
 def grade_analysis(): 
-
+    global func_on
     grades = [] # variable that will contain all grades
     # declare input
     user_grades = input("Please input the grades you recieved: ")
@@ -18,6 +21,12 @@ def grade_analysis():
     grades.extend(re.findall("(?<!\d)[0-9][0-9](?=%)", user_grades))
     grades.extend(re.findall("(?<!\d)\d(?=%)", user_grades)) # "[0-9]"= X, ?![a-zA-Z0-9])[0-9]% = X. 
     grades.extend(re.findall("100", user_grades))
+   
+    if grades == []:
+        print("No valid percentages entered. Please try again. Make sure to add a '%' to the end of each grade!  ")
+        func_on = False
+        return  # Exit the function if no valid grades are entered
+    
     # need to turn strings in list to numbers for calculation
     grades = [int(i) for i in grades]
 
@@ -53,6 +62,13 @@ def grade_analysis():
 
     #output grades with letter
     print(f"Average: {average}%, Highest Grade: {highest_grade}%, Lowest Grade: {lowest_grades}%, Letter Grade: {lettergrade}")
-grade_analysis()
+    func_on = True
+
+# call function if boolean is false
+
+while func_on == False:
+        grade_analysis()
+else:
+    print("See you next time!")
 
 
