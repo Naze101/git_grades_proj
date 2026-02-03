@@ -20,7 +20,7 @@ def grade_analysis():
     # use regex to clean input to get respect grades
     grades.extend(re.findall("(?<!\d)[0-9][0-9](?=%)", user_grades))
     grades.extend(re.findall("(?<!\d)\d(?=%)", user_grades)) # "[0-9]"= X, ?![a-zA-Z0-9])[0-9]% = X. 
-    grades.extend(re.findall("100", user_grades))
+    grades.extend(re.findall("100(?=%)", user_grades))
    
     if grades == []:
         print("No valid percentages entered. Please try again. Make sure to add a '%' to the end of each grade!  ")
